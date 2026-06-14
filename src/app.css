@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+@theme {
+  /* Neutrals — "day" scene defaults, overridden under [data-scene="night"/"late-night"] */
+  --color-ink: #ffffff;
+  --color-ink-soft: #eef5fc;
+  --color-graphite: #c3d3e6;
+  --color-graphite-soft: #aabfd9;
+  --color-muted: #7d93b4;
+  --color-mist: #5d7699;
+  --color-silver: #33527c;
+  --color-line: #cfe0f0;
+  --color-cloud: #0c2342;
+  --color-cloud-soft: #1c3a63;
+
+  /* Accent */
+  --color-signal: #1466ff;
+
+  /* Prism spectrum ("a lente") */
+  --color-prism-cyan: #6ad7ff;
+  --color-prism-violet: #8b7bff;
+  --color-prism-pink: #ff8fd0;
+  --color-prism-gold: #ffd36a;
+  --color-prism-mint: #7affc0;
+
+  /* Typography */
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Radius */
+  --radius-4xl: 1.75rem;
+  --radius-5xl: 2rem;
+
+  /* Motion */
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 22s linear infinite;
+  --animate-drift-1: drift-1 28s ease-in-out infinite;
+  --animate-drift-2: drift-2 34s ease-in-out infinite;
+  --animate-drift-3: drift-3 24s ease-in-out infinite;
+  --animate-drift-4: drift-4 40s ease-in-out infinite;
+  --animate-sheen: sheen 9s ease-in-out infinite;
+  --animate-glow-pulse: glow-pulse 6s ease-in-out infinite;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-rain-fall: rain-fall 1s linear infinite;
+  --animate-fade-in: fade-in 0.4s ease-out both;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes drift-1 {
+    0%, 100% { transform: translate3d(-6%, -8%, 0) scale(1); }
+    50% { transform: translate3d(8%, 6%, 0) scale(1.12); }
+  }
+
+  @keyframes drift-2 {
+    0%, 100% { transform: translate3d(10%, 6%, 0) scale(1.08); }
+    50% { transform: translate3d(-8%, -4%, 0) scale(0.96); }
+  }
+
+  @keyframes drift-3 {
+    0%, 100% { transform: translate3d(-4%, 10%, 0) scale(1); }
+    50% { transform: translate3d(6%, -10%, 0) scale(1.15); }
+  }
+
+  @keyframes drift-4 {
+    0%, 100% { transform: translate3d(6%, -6%, 0) scale(1.05); }
+    50% { transform: translate3d(-10%, 8%, 0) scale(0.94); }
+  }
+
+  @keyframes sheen {
+    0%, 100% { opacity: 0.35; transform: translateX(-8%); }
+    50% { opacity: 0.7; transform: translateX(8%); }
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes rain-fall {
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(110vh); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  :root {
+    /* Liquid glass surfaces — light scenes (day, golden) */
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.7);
+    --glass-highlight: rgba(255, 255, 255, 0.65);
+    --glass-inset: rgba(255, 255, 255, 0.9);
+    --glass-shadow: rgba(64, 99, 151, 0.28);
+    --glass-hover-bg: rgba(255, 255, 255, 0.68);
+    --glass-hover-shadow: rgba(64, 99, 151, 0.32);
+
+    --bubble-bg: rgba(12, 35, 66, 0.06);
+    --bubble-ring: rgba(12, 35, 66, 0.1);
+
+    --text-scrim: 0 1px 2px rgba(255, 255, 255, 0.7), 0 1px 14px rgba(255, 255, 255, 0.4);
+
+    /* Rain — light scenes */
+    --rain-color: rgba(110, 140, 180, 0.5);
+    --rain-overlay: rgba(170, 190, 210, 0.22);
+
+    /* Scene: day — bright sky over water, sun upper-right */
+    --bg-grad: radial-gradient(120% 85% at 50% -10%, #eaf6ff 0%, #cfe8ff 45%, #ffffff 100%);
+    --scrim-grad: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 26%,
+      transparent 74%,
+      rgba(255, 255, 255, 0.55) 100%
+    );
+
+    --blob-1: linear-gradient(135deg, #8ecbff, #d3ecff);
+    --blob-2: linear-gradient(115deg, #bfe3ff, #ffffff);
+    --blob-3: linear-gradient(100deg, #9fe6ea, #cdeeff);
+    --blob-4: linear-gradient(160deg, #cddcff, #f0f6ff);
+    --blob-opacity: 0.55;
+
+    --wave-1-from: #8ecbff;
+    --wave-1-to: #eaf6ff;
+    --wave-2-from: #bfe7ff;
+    --wave-2-to: #ffffff;
+    --wave-opacity: 0.85;
+
+    --celestial-top: 8%;
+    --celestial-right: 10%;
+
+    --sun-moon-glow: radial-gradient(circle, rgba(255, 224, 150, 0.85) 0%, rgba(255, 189, 107, 0.35) 45%, transparent 75%);
+    --sun-moon-core: radial-gradient(circle at 35% 32%, #fffaeb, #ffd36a 55%, #ffb74d 100%);
+    --sun-moon-shadow: 0 0 60px 16px rgba(255, 211, 106, 0.45), inset -6px -6px 14px rgba(255, 255, 255, 0.5);
+
+    color-scheme: light;
+  }
+
+  [data-scene='golden'] {
+    /* Scene: golden hour — warm sunset sky, sun low on the upper-left */
+    --bg-grad: radial-gradient(120% 85% at 50% -10%, #ffd9b0 0%, #ffb3a0 45%, #fff4ec 100%);
+    --scrim-grad: linear-gradient(
+      to bottom,
+      rgba(255, 247, 240, 0.28) 0%,
+      transparent 26%,
+      transparent 74%,
+      rgba(255, 238, 225, 0.55) 100%
+    );
+
+    --blob-1: linear-gradient(135deg, #ffb88c, #ffe3c2);
+    --blob-2: linear-gradient(115deg, #ff9d9d, #ffd9c2);
+    --blob-3: linear-gradient(100deg, #c9a6ff, #ffd6e8);
+    --blob-4: linear-gradient(160deg, #ffe29a, #fff3d6);
+    --blob-opacity: 0.55;
+
+    --wave-1-from: #ff9d6e;
+    --wave-1-to: #ffe7d6;
+    --wave-2-from: #ffc28a;
+    --wave-2-to: #fff7ef;
+    --wave-opacity: 0.85;
+
+    --celestial-top: 6%;
+    --celestial-right: 76%;
+
+    --sun-moon-glow: radial-gradient(circle, rgba(255, 150, 100, 0.85) 0%, rgba(255, 110, 90, 0.35) 45%, transparent 75%);
+    --sun-moon-core: radial-gradient(circle at 35% 32%, #fff0d9, #ff9d5c 55%, #ff7043 100%);
+    --sun-moon-shadow: 0 0 60px 16px rgba(255, 120, 70, 0.45), inset -6px -6px 14px rgba(255, 255, 255, 0.45);
+  }
+
+  [data-scene='night'],
+  [data-scene='late-night'] {
+    --color-ink: #04070e;
+    --color-ink-soft: #0b1730;
+    --color-graphite: #3c4f70;
+    --color-graphite-soft: #51698f;
+    --color-muted: #7e91ad;
+    --color-mist: #9fb0c9;
+    --color-silver: #c7d3e6;
+    --color-cloud: #f5f7fb;
+    --color-cloud-soft: #e4eaf3;
+    --color-signal: #4d8dff;
+
+    /* Liquid glass surfaces — dark scenes (night, late-night) */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-highlight: rgba(255, 255, 255, 0.2);
+    --glass-inset: rgba(255, 255, 255, 0.3);
+    --glass-shadow: rgba(0, 0, 0, 0.55);
+    --glass-hover-bg: rgba(255, 255, 255, 0.16);
+    --glass-hover-shadow: rgba(0, 0, 0, 0.6);
+
+    --bubble-bg: rgba(255, 255, 255, 0.1);
+    --bubble-ring: rgba(255, 255, 255, 0.15);
+
+    --text-scrim: 0 1px 3px rgba(0, 0, 0, 0.45), 0 6px 20px rgba(0, 0, 0, 0.35);
+
+    /* Rain — dark scenes */
+    --rain-color: rgba(190, 210, 255, 0.4);
+    --rain-overlay: rgba(5, 10, 20, 0.35);
+
+    color-scheme: dark;
+  }
+
+  [data-scene='night'] {
+    /* Scene: night — deep navy sky, moon upper-right */
+    --bg-grad: radial-gradient(120% 85% at 50% -10%, #16263f 0%, #060c18 55%, #000000 100%);
+    --scrim-grad: linear-gradient(
+      to bottom,
+      rgba(4, 7, 14, 0.45) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(4, 7, 14, 0.5) 100%
+    );
+
+    --blob-1: linear-gradient(135deg, #2f5fa6, #1c3f73);
+    --blob-2: linear-gradient(115deg, #11264a, #2f5fa6);
+    --blob-3: linear-gradient(100deg, var(--color-prism-cyan), #1c3f73);
+    --blob-4: linear-gradient(160deg, var(--color-prism-violet), #11264a);
+    --blob-opacity: 0.4;
+
+    --wave-1-from: #2f5fa6;
+    --wave-1-to: #11264a;
+    --wave-2-from: var(--color-prism-cyan);
+    --wave-2-to: #1c3f73;
+    --wave-opacity: 0.9;
+
+    --celestial-top: 8%;
+    --celestial-right: 10%;
+
+    --sun-moon-glow: radial-gradient(circle, rgba(220, 232, 250, 0.35) 0%, rgba(140, 165, 210, 0.18) 45%, transparent 75%);
+    --sun-moon-core: radial-gradient(circle at 35% 32%, #fdfdf6, #d7dee9 60%, #b6c1d6 100%);
+    --sun-moon-shadow: 0 0 40px 8px rgba(200, 215, 240, 0.25), inset -6px -6px 14px rgba(140, 160, 195, 0.35);
+  }
+
+  [data-scene='late-night'] {
+    /* Scene: late night — deep indigo sky, moon upper-left */
+    --bg-grad: radial-gradient(120% 85% at 50% -10%, #1b1640 0%, #0a0820 55%, #000000 100%);
+    --scrim-grad: linear-gradient(
+      to bottom,
+      rgba(6, 4, 15, 0.5) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(6, 4, 15, 0.55) 100%
+    );
+
+    --blob-1: linear-gradient(135deg, #4a3f8f, #241b4d);
+    --blob-2: linear-gradient(115deg, #1c1840, #4a3f8f);
+    --blob-3: linear-gradient(100deg, var(--color-prism-violet), #241b4d);
+    --blob-4: linear-gradient(160deg, var(--color-prism-pink), #1c1840);
+    --blob-opacity: 0.35;
+
+    --wave-1-from: #4a3f8f;
+    --wave-1-to: #1c1840;
+    --wave-2-from: var(--color-prism-violet);
+    --wave-2-to: #241b4d;
+    --wave-opacity: 0.9;
+
+    --celestial-top: 12%;
+    --celestial-right: 74%;
+
+    --sun-moon-glow: radial-gradient(circle, rgba(225, 222, 250, 0.32) 0%, rgba(160, 150, 220, 0.16) 45%, transparent 75%);
+    --sun-moon-core: radial-gradient(circle at 35% 32%, #f5f3fb, #d6d2e8 60%, #b3aed1 100%);
+    --sun-moon-shadow: 0 0 40px 8px rgba(210, 200, 240, 0.22), inset -6px -6px 14px rgba(160, 150, 195, 0.35);
+  }
+
+  body {
+    @apply bg-ink text-cloud font-sans antialiased transition-colors duration-500;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* The conic "lens" spectrum used across the lens mark and glow blobs */
+  .prism-gradient {
+    background-image: conic-gradient(
+      from 200deg,
+      var(--color-prism-cyan),
+      var(--color-prism-violet),
+      var(--color-prism-pink),
+      var(--color-prism-gold),
+      var(--color-prism-mint),
+      var(--color-prism-cyan)
+    );
+  }
+
+  /* Liquid glass surface: translucent, blurred, soft inner glow + outer depth */
+  .glass {
+    @apply relative isolate overflow-hidden backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-500;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 1px 1px var(--glass-inset) inset, 0 18px 40px -18px var(--glass-shadow);
+  }
+
+  .glass::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 rounded-[inherit];
+    background: linear-gradient(to bottom, var(--glass-highlight), transparent, transparent);
+  }
+
+  .glass:hover {
+    background: var(--glass-hover-bg);
+    box-shadow: 0 1px 1px var(--glass-inset) inset, 0 26px 48px -20px var(--glass-hover-shadow);
+  }
+
+  /* Subtle "bubble" backdrop behind link icons, tuned per theme */
+  .icon-bubble {
+    background: var(--bubble-bg);
+    box-shadow: inset 0 0 0 1px var(--bubble-ring);
+  }
+
+  /* Soft shadow behind text sitting on top of the liquid background */
+  .text-scrim {
+    text-shadow: var(--text-scrim);
+  }
+}
